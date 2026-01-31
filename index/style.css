@@ -1,0 +1,42 @@
+.body {
+    background-color:darkslategrey;
+    margin: 0px;
+}
+
+.title {
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.inputs {
+    justify-content: center;
+    padding: 20px;
+    background-color: transparent;
+    text-align: center;
+}
+
+.input-box {
+    color: black;
+    margin: 5px;
+    border-radius: 7px;
+}
+
+.dif-box {
+    padding: 15px;
+    color:darkkhaki;
+    text-align: justify;
+}
+
+.footer {
+    background-color:black;
+    margin: 0px;
+    padding: 10px 25px 10px 20px ;
+    text-align: end ;
+    position: bottom;
+    font-family :American Typewriter;
+}
+
+.footer-box {
+    color: gold;
+    font-size: larger;
+}

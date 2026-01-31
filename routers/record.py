@@ -99,6 +99,9 @@ async def get_record(id: str):
 
     return record_db
 
+
+################## FUNCTIONS #######################
+
 def search_record_db(key, value):    
     try:
         record = db_client.records.find_one({key: value})
@@ -110,7 +113,6 @@ def search_record_db(key, value):
             "error" : e
                 }
     
-
 def calculate_time(start: datetime, end: datetime) -> str:
     """
     Calcula o tempo gasto arredondado para blocos de 15 minutos.
