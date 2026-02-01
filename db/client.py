@@ -1,8 +1,12 @@
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
-# Descomentar quando senha fica codificada
-# db_client = MongoClient(host = "mongodb+srv://db_timer_nicot:<db_password>@cluster0.zprfax4.mongodb.net/?appName=Cluster0")   
+env = load_dotenv()
 
-db_client = MongoClient("mongodb+srv://db_timer_nicot:X5rrYhC8uFVsY4V2@cluster0.zprfax4.mongodb.net/?appName=Cluster0").db_timer_nicot
+MONGODB_USER = os.getenv("MONGODB_USER")
+MONGODB_PASSWORD = os.getenv("MONGODB_PASSWORD")
+MONGODB_CLUSTER = os.getenv("MONGODB_CLUSTER")
+MONGODB_DATABASE = os.getenv("MONGODB_DATABASE")
 
-# db_client = MongoClient("mongodb+srv://nicotafle:cook1312@cluster0.9yqopqd.mongodb.net/?appName=Cluster0").nicotafle
+db_client = MongoClient(f"mongodb+srv://{MONGODB_USER}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}/{MONGODB_DATABASE}").db_timer_nicot
