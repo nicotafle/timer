@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Request, Form
+from fastapi.responses import RedirectResponse
 from datetime import datetime
 from db.client import db_client
 from db.models.users import User
@@ -12,9 +13,9 @@ router = APIRouter(prefix="/records", tags=['records'])
 
 ############## START TIMER ####################
 @router.post("/init")
-async def init_timer(record : Record):
+async def init_timer(task_id: str = (Form(...))):
     
-    record_db = search_record_db('task_id', record.task_id) 
+    record_db = search_record_db('task_id', task_id) 
     if type(record_db) == Record and record_db.recording:
         raise HTTPException(
             status_code = status.HTTP_400_BAD_REQUEST,
@@ -22,7 +23,7 @@ async def init_timer(record : Record):
         )
 
     vals = {
-        'task_id' : record.task_id,
+        'task_id' : task_id,
         'start' : datetime.now(),
         'recording' : True,
     }
@@ -32,15 +33,18 @@ async def init_timer(record : Record):
         id = db_client.records.insert_one(record_dict).inserted_id
         new_record = record_schema(db_client.records.find_one({'_id': id}))
 
-        return Record(**new_record)
+        return RedirectResponse(
+            url= f"/records/{id}",
+            status_code = status.HTTP_302_FOUND
+        )
     
     except Exception as e:
         return f"Error {e}"
     
 
 ############## STOP TIMER ####################
-@router.post("/{id}/stop")
-async def init_timer(id : str):
+@router.post("/stop")
+async def init_timer(id : str = Form(...)):
     
     record_db = search_record_db('_id', ObjectId(id)) 
     if type(record_db) == Record and not record_db.recording:
@@ -64,7 +68,11 @@ async def init_timer(id : str):
         })
 
         record_update = record_schema(db_client.records.find_one({'_id': ObjectId(id)}))
-        return Record(**record_update)
+        id = record_update["id"]
+        return RedirectResponse(
+            url=f"/records/{str(id)}",
+            status_code= status.HTTP_302_FOUND
+        )
     
     except Exception as e:
         return f"Error {e}"
@@ -92,7 +100,6 @@ async def get_record(id: str):
             detail = "Type != Record %s \n Return from search_record_db: \t%%s" 
             %type(search_record_db('_id', ObjectId(id))) 
             %result
-
         )  
     
     record_db = search_record_db('_id', ObjectId(id))
@@ -132,7 +139,7 @@ def calculate_time(start: datetime, end: datetime) -> str:
     total_minutes = int(duration.total_seconds() / 60)
     
     # Roundig / 15 minutes
-    rounded_minutes = (total_minutes // 15) * 15
+    rounded_minutes = round(total_minutes / 15) * 15
     
     # Rollback to hours and minutes hh:mm
     hours = rounded_minutes // 60

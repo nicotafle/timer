@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% if username %}
+        Timer - username 
+        {% else %}
+        Timer
+        {% endif %}
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+<body class="body">
+
+    {% block content %}
+    {% endblock content %}
+
+    <footer class="footer">
+        <div class="footer-box" style="background-color: darkslategray;">
+            <p class="">Author: <strong>Nicolas G. Tafle</strong></p>
+            <p class=""><a href="#" style="color:gold">This is a redirect link</a></p>
+        </div>
+    </footer>
+</body>
+</html>

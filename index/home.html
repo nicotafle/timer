@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% if to_start %}
+        <h1 class="title">Start a task!</h1>
+
+        <div class="inputs">
+        </div>
+        <form method="post" action="/records/init">
+            <input 
+                type="text" 
+                name="task_id"  
+                class="input-box" 
+                placeholder="Task Id #11111"
+                required>
+            <button class="start button" type="submit">
+                <i class="fa-solid fa-play"></i>Start
+            </button>
+        </form>
+        
+        <div class="dif-box">
+            <span class="">Time untile your goal <strong>00:00</strong></span>
+        </div>
+        
+        {% elif to_stop %}
+        <h1 class="title">Stop your task!</h1>
+
+        <form method="post" action="/records/stop">
+            <input 
+                type="text" 
+                name="id"  
+                class="input-box" 
+                placeholder="Register Id"
+                required>
+            <button class="button" type="submit">
+                <i class="fa-solid fa-stop"></i>Stop your task
+            </button>
+        </form>
+        
+        <div class="dif-box">
+            <span class="">Time untile your goal <strong>00:00</strong></span>
+        </div>
+        
+        {% else %}
+        <h1 class="title">Counter time</h1>
+        
+        <div class="button">
+            <p>
+                Want to start a task?
+                <br/>
+                <form method="get" action="/start-record">
+                    <button type="submit"> <i class="fa-solid fa-play"></i>Start </button>
+                </form>
+            </p>
+
+            <p>
+                Finish your task?
+                <br/>
+                <form method="get" action="/stop-record">
+                    <button type="submit"> <i class="fa-solid fa-stop"></i>Stop </button>
+                </form>
+            </p>
+        </div>
+        
+        <div class="dif-box">
+            <span class="">Time untile your goal <strong>00:00</strong></span>
+        </div>
+    {% endif %}
+{% endblock content %}
