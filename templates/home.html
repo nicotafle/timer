@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 
 {% block content %}
@@ -19,7 +20,7 @@
         </form>
         
         <div class="dif-box">
-            <span class="">Time untile your goal <strong>00:00</strong></span>
+            <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
         </div>
         
         {% elif to_stop %}
@@ -54,7 +55,7 @@
             </p>
 
             <p>
-                Finish your task?
+                Already Done Machine!?
                 <br/>
                 <form method="get" action="/stop-record">
                     <button type="submit"> <i class="fa-solid fa-stop"></i>Stop </button>

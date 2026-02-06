@@ -1,4 +1,5 @@
 .body {
+    text-align: center;
     background-color:darkslategrey;
     margin: 0px;
 }
@@ -26,6 +27,17 @@
     color:darkkhaki;
     text-align: justify;
 }
+
+.box-goal {
+    padding: 5px;
+    border: 1.5px solid black;
+}
+
+
+
+
+
+/* FOOTER */
 
 .footer {
     background-color:black;

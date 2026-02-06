@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, status, Request, Form
 from fastapi.responses import RedirectResponse
+from fastapi.templating import Jinja2Templates
 from datetime import datetime
 from db.client import db_client
 from db.models.users import User
@@ -8,6 +9,7 @@ from db.schema.record import record_schema, records_schema
 from db.schema.user import user_schema, users_schema
 from bson import ObjectId
 
+template = Jinja2Templates(directory="templates")
 
 router = APIRouter(prefix="/records", tags=['records'])
 
@@ -44,7 +46,7 @@ async def init_timer(task_id: str = (Form(...))):
 
 ############## STOP TIMER ####################
 @router.post("/stop")
-async def init_timer(id : str = Form(...)):
+async def stop_timer(id : str = Form(...)):
     
     record_db = search_record_db('_id', ObjectId(id)) 
     if type(record_db) == Record and not record_db.recording:
@@ -63,7 +65,7 @@ async def init_timer(id : str = Form(...)):
             '$set': {
                 'end': end_time,
                 'recording': False,
-                'time_spend': time_spend
+                'time_spend': time_spend,
             }
         })
 
@@ -77,22 +79,28 @@ async def init_timer(id : str = Form(...)):
     except Exception as e:
         return f"Error {e}"
 
-
+############## GET RECORD ####################
 @router.get("/{id}")
-async def get_record(id: str):
+async def get_record(id: str, request: Request):
     
     if type(search_record_db('_id', ObjectId(id))) != Record:
         raise HTTPException(
             status_code = status.HTTP_400_BAD_REQUEST
         )  
 
-    record_db = search_record_db('_id', ObjectId(id))
+    record = search_record_db('_id', ObjectId(id))
 
-    return record_db
+    if record.time_spend != None:
+        now = datetime.now()
+        middle_time_spend = calculate_time(record.start, now)
 
-@router.get("/")
-async def get_record(id: str):
+        return template.TemplateResponse("record.html", {"request" : request, "record": record, "middle_time_spend": middle_time_spend})
+
+    else:
+        return template.TemplateResponse("record.html", {"request" : request, "record": record})
     
+@router.get("/")
+async def get_record(id: str):    
     if type(search_record_db('_id', ObjectId(id))) != Record:
         result = search_record_db('_id', ObjectId(id))
         raise HTTPException(

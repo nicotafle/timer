@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Task # {{ record.task_id }}</h1>
+
+<div class="time-spend" name="time_spend">
+    {% if not record.end  %}
+    <p class="">{{ record.middle_time_spend }}</p>
+    
+    {% else %}
+    <p class="">{{ record.time_spend }}</p>
+</div>
+    {% endif %}
+
+{% endblock content %} 

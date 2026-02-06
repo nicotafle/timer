@@ -10,8 +10,8 @@
         Timer
         {% endif %}
     </title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="./style.css"/>
 </head>
 <body class="body">
 
@@ -19,9 +19,9 @@
     {% endblock content %}
 
     <footer class="footer">
-        <div class="footer-box" style="background-color: darkslategray;">
+        <div class="footer-box">
             <p class="">Author: <strong>Nicolas G. Tafle</strong></p>
-            <p class=""><a href="#" style="color:gold">This is a redirect link</a></p>
+            <p class=""><a href="http://127.0.0.1:8000/home" style="color:gold">Home</a></p>
         </div>
     </footer>
 </body>

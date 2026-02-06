@@ -10,7 +10,10 @@ app = FastAPI()
 
 app.include_router(record.router)
 
-template = Jinja2Templates(directory="index")
+template = Jinja2Templates(directory="templates")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 @app.get("/home")
 async def home(request: Request):
