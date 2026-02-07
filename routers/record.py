@@ -90,11 +90,13 @@ async def get_record(id: str, request: Request):
 
     record = search_record_db('_id', ObjectId(id))
 
-    if record.time_spend != None:
+    if not record.end:
         now = datetime.now()
         middle_time_spend = calculate_time(record.start, now)
 
-        return template.TemplateResponse("record.html", {"request" : request, "record": record, "middle_time_spend": middle_time_spend})
+        return template.TemplateResponse("record.html", {"request" : request, 
+                                                        "record": record,
+                                                        "middle_time_spend": middle_time_spend})
 
     else:
         return template.TemplateResponse("record.html", {"request" : request, "record": record})
@@ -114,6 +116,9 @@ async def get_record(id: str):
 
     return record_db
 
+################## COMPUTE TIME ####################
+# @router.get("/{id}/compute-time")
+# async def compute_time(id: str = Form(...), request: Request):
 
 ################## FUNCTIONS #######################
 

@@ -1,15 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>Task # {{ record.task_id }}</h1>
 
-<div class="time-spend" name="time_spend">
-    {% if not record.end  %}
-    <p class="">{{ record.middle_time_spend }}</p>
-    
-    {% else %}
-    <p class="">{{ record.time_spend }}</p>
-</div>
-    {% endif %}
+    <div class="record-info">
+        <h1>Task # {{ record.task_id }}</h1>
+        <br/>
+        
+        {% if not record.end %}
+            <h2>Initiated at</h2>
+            <h2>{{ record.start }}</h2>
+            <h2>And have been working</h2>
+            <h2>{{ middle_time_spend }}   <span style="color:dimgrey; font-size: small;">hh:mm</span></h2>
+
+        {% else %}
+            <h2>This task take</h2>
+            <h2>{{ record.time_spend }}</h2>
+        {% endif %}
+    </div>
+
 
 {% endblock content %} 

@@ -33,6 +33,11 @@
     border: 1.5px solid black;
 }
 
+.record-info {
+    padding: 2px;
+    text-overflow: nowrap;
+}
+
 
 
 
@@ -41,14 +46,16 @@
 
 .footer {
     background-color:black;
-    margin: 0px;
-    padding: 10px 25px 10px 20px ;
-    text-align: end ;
-    position: bottom;
-    font-family :American Typewriter;
+    padding: 10px;
+    text-align: end;
+    font-family: American Typewriter;
+    position: sticky;
+    bottom: 0px;
+    max-height: fit-content;
 }
 
 .footer-box {
     color: gold;
     font-size: larger;
+    padding: 5px;
 }
