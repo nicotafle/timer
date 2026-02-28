@@ -23,6 +23,9 @@
         {% else %}
             <h2>This task take</h2>
             <h2>{{ record.time_spend }}</h2>
+            {% if record.rounded_time_spend %}
+                <p>Rounded 15min blocks: <strong>{{ record.rounded_time_spend }}</strong></p>
+            {% endif %}
         {% endif %}
     </div>
 

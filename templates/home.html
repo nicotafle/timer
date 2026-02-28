@@ -29,9 +29,9 @@
         <form method="post" action="/records/pause">
             <input 
                 type="text" 
-                name="id"  
+                name="task_id"  
                 class="input-box" 
-                placeholder="Register Id"
+                placeholder="Task Id #11111"
                 required>
             <button class="button" type="submit">
                 <i class="fa-solid fa-stop"></i>Take a break
@@ -48,15 +48,34 @@
         <form method="post" action="/records/stop">
             <input 
                 type="text" 
-                name="id"  
+                name="task_id"  
                 class="input-box" 
-                placeholder="Register Id"
+                placeholder="Task Id #11111"
                 required>
             <button class="button" type="submit">
                 <i class="fa-solid fa-stop"></i>Stop your task
             </button>
         </form>
         
+        <div class="dif-box">
+            <span class="">Time untile your goal <strong>00:00</strong></span>
+        </div>
+
+    {% elif to_resume %}
+        <h1 class="title">Resume your task!</h1>
+
+        <form method="post" action="/records/resume">
+            <input
+                type="text"
+                name="task_id"
+                class="input-box"
+                placeholder="Task Id #11111"
+                required>
+            <button class="button" type="submit">
+                <i class="fa-solid fa-forward"></i>Resume your task
+            </button>
+        </form>
+
         <div class="dif-box">
             <span class="">Time untile your goal <strong>00:00</strong></span>
         </div>
@@ -78,6 +97,14 @@
                 <br/>
                 <form method="get" action="/pause-record">
                     <button type="submit"> <i class="fa-solid fa-pause"></i> Pause </button>
+                </form>
+            </p>
+
+            <p>
+                Ready to continue?
+                <br/>
+                <form method="get" action="/resume-record">
+                    <button type="submit"> <i class="fa-solid fa-forward"></i> Resume </button>
                 </form>
             </p>
 
