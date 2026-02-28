@@ -23,7 +23,26 @@
             <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
         </div>
         
-        {% elif to_stop %}
+    {% elif to_pause %}
+        <h1 class="title">Coffe Time!</h1>
+
+        <form method="post" action="/records/pause">
+            <input 
+                type="text" 
+                name="id"  
+                class="input-box" 
+                placeholder="Register Id"
+                required>
+            <button class="button" type="submit">
+                <i class="fa-solid fa-stop"></i>Take a break
+            </button>
+        </form>
+        
+        <div class="dif-box">
+            <span class="">Time untile your goal <strong>00:00</strong></span>
+        </div>
+        
+    {% elif to_stop %}
         <h1 class="title">Stop your task!</h1>
 
         <form method="post" action="/records/stop">
@@ -42,7 +61,7 @@
             <span class="">Time untile your goal <strong>00:00</strong></span>
         </div>
         
-        {% else %}
+    {% else %}
         <h1 class="title">Counter time</h1>
         
         <div class="button">
@@ -50,7 +69,15 @@
                 Want to start a task?
                 <br/>
                 <form method="get" action="/start-record">
-                    <button type="submit"> <i class="fa-solid fa-play"></i>Start </button>
+                    <button type="submit"> <i class="fa-solid fa-play"></i> Start </button>
+                </form>
+            </p>
+            
+            <p>
+                Need a break?
+                <br/>
+                <form method="get" action="/pause-record">
+                    <button type="submit"> <i class="fa-solid fa-pause"></i> Pause </button>
                 </form>
             </p>
 
@@ -58,7 +85,7 @@
                 Already Done Machine!?
                 <br/>
                 <form method="get" action="/stop-record">
-                    <button type="submit"> <i class="fa-solid fa-stop"></i>Stop </button>
+                    <button type="submit"> <i class="fa-solid fa-stop"></i> Stop </button>
                 </form>
             </p>
         </div>

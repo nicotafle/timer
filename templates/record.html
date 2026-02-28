@@ -6,11 +6,19 @@
         <h1>Task # {{ record.task_id }}</h1>
         <br/>
         
-        {% if not record.end %}
+        {% if not record.end and not record.break_time %}
             <h2>Initiated at</h2>
             <h2>{{ record.start }}</h2>
             <h2>And have been working</h2>
             <h2>{{ middle_time_spend }}   <span style="color:dimgrey; font-size: small;">hh:mm</span></h2>
+
+        {% elif not record.end and record.break_time %}
+            <h2>Initiated at</h2>
+            <h2>{{ record.start }}</h2>
+            <h2>Paused at</h2>
+            <h2>{{ record.pause_at }}</h2>
+            <h2>And have been working</h2>
+            <h2>{{ record.break_time }}   <span style="color:dimgrey; font-size: small;">hh:mm</span></h2>
 
         {% else %}
             <h2>This task take</h2>

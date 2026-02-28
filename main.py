@@ -27,13 +27,22 @@ async def home(request: Request):
 @app.get("/start-record")
 async def start_record(request: Request):
     response = {'to_start': True,
+                'to_pause': False,
                 'to_stop': False}
     return template.TemplateResponse(request, "home.html", dict(response))
 
 @app.get("/stop-record")
 async def start_record(request: Request):
     response = {'to_start': False,
+                'to_pause': False,
                 'to_stop': True}
+    return template.TemplateResponse(request, "home.html", dict(response))
+
+@app.get("/pause-record")
+async def start_record(request: Request):
+    response = {'to_start': False,
+                'to_pause': True,
+                'to_stop': False}
     return template.TemplateResponse(request, "home.html", dict(response))
 
 

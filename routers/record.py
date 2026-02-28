@@ -43,6 +43,43 @@ async def init_timer(task_id: str = (Form(...))):
     except Exception as e:
         return f"Error {e}"
     
+################# PAUSE #######################
+@router.post("/pause")
+async def pause_timer(id : str = Form(...)):
+
+    record_db = search_record_db('_id', ObjectId(id)) 
+    if type(record_db) == Record and not record_db.recording:
+        raise HTTPException(
+            status_code = status.HTTP_400_BAD_REQUEST,
+            detail = "This task is paused or already done"
+        )
+    
+    pause_time = datetime.now()
+    break_time = calculate_time(record_db.start, pause_time)
+
+    try: 
+        db_client.records.update_one(
+            {'_id': ObjectId(record_db.id)},
+            {
+            '$set': {
+                'break_time': break_time,
+                'pause_at': pause_time,
+                'recording': False,
+                'paused': True,
+            }
+        })
+
+        record_update = record_schema(db_client.records.find_one({'_id': ObjectId(id)}))
+        id = record_update["id"]
+        
+        return RedirectResponse(
+            url=f"/records/{str(id)}",
+            status_code= status.HTTP_302_FOUND
+        )
+    
+    except Exception as e:
+        return f"Error {e}"
+
 
 ############## STOP TIMER ####################
 @router.post("/stop")
@@ -52,8 +89,11 @@ async def stop_timer(id : str = Form(...)):
     if type(record_db) == Record and not record_db.recording:
         raise HTTPException(
             status_code = status.HTTP_400_BAD_REQUEST,
-            detail = "This task is already done"
+            detail = "This task is paused or already done"
         )
+
+    if record_db.paused:
+        True
 
     end_time = datetime.now()
     time_spend = calculate_time(record_db.start, end_time)
@@ -88,18 +128,18 @@ async def get_record(id: str, request: Request):
             status_code = status.HTTP_400_BAD_REQUEST
         )  
 
-    record = search_record_db('_id', ObjectId(id))
+    record_db = search_record_db('_id', ObjectId(id))
 
-    if not record.end:
+    if not record_db.end and not record_db.break_time:
         now = datetime.now()
-        middle_time_spend = calculate_time(record.start, now)
+        middle_time_spend = calculate_time(record_db.start, now)
 
         return template.TemplateResponse("record.html", {"request" : request, 
-                                                        "record": record,
+                                                        "record": record_db,
                                                         "middle_time_spend": middle_time_spend})
 
     else:
-        return template.TemplateResponse("record.html", {"request" : request, "record": record})
+        return template.TemplateResponse("record.html", {"request" : request, "record": record_db})
     
 @router.get("/")
 async def get_record(id: str):    
@@ -124,8 +164,8 @@ async def get_record(id: str):
 
 def search_record_db(key, value):    
     try:
-        record = db_client.records.find_one({key: value})
-        return Record(**record_schema(record))
+        record_db = db_client.records.find_one({key: value})
+        return Record(**record_schema(record_db))
     
     except Exception as e:
         return {
