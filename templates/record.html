@@ -1,33 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="page page-record">
+    <section class="panel record-info">
+        <h1 class="title">Task {{ record.task_id }}</h1>
 
-
-    <div class="record-info">
-        <h1>Task # {{ record.task_id }}</h1>
-        <br/>
-        
         {% if not record.end and not record.break_time %}
-            <h2>Initiated at</h2>
-            <h2>{{ record.start }}</h2>
-            <h2>And have been working</h2>
-            <h2>{{ middle_time_spend }}   <span style="color:dimgrey; font-size: small;">hh:mm</span></h2>
+            <div class="record-grid">
+                <h2>Initiated at</h2>
+                <p>{{ record.start }}</p>
+                <h2>And have been working</h2>
+                <p>{{ middle_time_spend }} <span class="time-unit">hh:mm</span></p>
+            </div>
 
         {% elif not record.end and record.break_time %}
-            <h2>Initiated at</h2>
-            <h2>{{ record.start }}</h2>
-            <h2>Paused at</h2>
-            <h2>{{ record.pause_at }}</h2>
-            <h2>And have been working</h2>
-            <h2>{{ record.break_time }}   <span style="color:dimgrey; font-size: small;">hh:mm</span></h2>
+            <div class="record-grid">
+                <h2>Initiated at</h2>
+                <p>{{ record.start }}</p>
+                <h2>Paused at</h2>
+                <p>{{ record.pause_at }}</p>
+                <h2>And have been working</h2>
+                <p>{{ record.break_time }} <span class="time-unit">hh:mm</span></p>
+            </div>
 
         {% else %}
-            <h2>This task take</h2>
-            <h2>{{ record.time_spend }}</h2>
+            <div class="record-grid">
+                <h2>This task take</h2>
+                <p>{{ record.time_spend }}</p>
+            </div>
             {% if record.rounded_time_spend %}
                 <p>Rounded 15min blocks: <strong>{{ record.rounded_time_spend }}</strong></p>
             {% endif %}
         {% endif %}
-    </div>
-
-
-{% endblock content %} 
+    </section>
+</div>
+{% endblock content %}

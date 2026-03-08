@@ -10,13 +10,14 @@
         Timer
         {% endif %}
     </title>
-    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}?v=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="body">
-
-    {% block content %}
-    {% endblock content %}
+<body>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
 
     <footer class="footer">
         <div class="footer-box">

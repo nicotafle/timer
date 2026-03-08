@@ -1,124 +1,129 @@
-
 {% extends "layout.html" %}
 
 {% block content %}
+<div class="page page-home">
     {% if to_start %}
-        <h1 class="title">Start a task!</h1>
+        <section class="panel">
+            <h1 class="title">Start a task!</h1>
 
-        <div class="inputs">
-        </div>
-        <form method="post" action="/records/init">
-            <input 
-                type="text" 
-                name="task_id"  
-                class="input-box" 
-                placeholder="Task Id #11111"
-                required>
-            <button class="start button" type="submit">
-                <i class="fa-solid fa-play"></i>Start
-            </button>
-        </form>
-        
-        <div class="dif-box">
-            <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
-        </div>
-        
+            <form method="post" action="/records/init" class="action-form">
+                <input
+                    type="text"
+                    name="task_id"
+                    class="input-box"
+                    placeholder="Task Id #11111"
+                    required>
+                <button class="button" type="submit">
+                    <i class="fa-solid fa-play"></i> Start
+                </button>
+            </form>
+
+            <div class="dif-box">
+                <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
+            </div>
+        </section>
+
     {% elif to_pause %}
-        <h1 class="title">Coffe Time!</h1>
+        <section class="panel">
+            <h1 class="title">Coffe Time!</h1>
 
-        <form method="post" action="/records/pause">
-            <input 
-                type="text" 
-                name="task_id"  
-                class="input-box" 
-                placeholder="Task Id #11111"
-                required>
-            <button class="button" type="submit">
-                <i class="fa-solid fa-stop"></i>Take a break
-            </button>
-        </form>
-        
-        <div class="dif-box">
-            <span class="">Time untile your goal <strong>00:00</strong></span>
-        </div>
-        
+            <form method="post" action="/records/pause" class="action-form">
+                <input
+                    type="text"
+                    name="task_id"
+                    class="input-box"
+                    placeholder="Task Id #11111"
+                    required>
+                <button class="button" type="submit">
+                    <i class="fa-solid fa-stop"></i> Take a break
+                </button>
+            </form>
+
+            <div class="dif-box">
+                <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
+            </div>
+        </section>
+
     {% elif to_stop %}
-        <h1 class="title">Stop your task!</h1>
+        <section class="panel">
+            <h1 class="title">Stop your task!</h1>
 
-        <form method="post" action="/records/stop">
-            <input 
-                type="text" 
-                name="task_id"  
-                class="input-box" 
-                placeholder="Task Id #11111"
-                required>
-            <button class="button" type="submit">
-                <i class="fa-solid fa-stop"></i>Stop your task
-            </button>
-        </form>
-        
-        <div class="dif-box">
-            <span class="">Time untile your goal <strong>00:00</strong></span>
-        </div>
+            <form method="post" action="/records/stop" class="action-form">
+                <input
+                    type="text"
+                    name="task_id"
+                    class="input-box"
+                    placeholder="Task Id #11111"
+                    required>
+                <button class="button" type="submit">
+                    <i class="fa-solid fa-stop"></i> Stop your task
+                </button>
+            </form>
+
+            <div class="dif-box">
+                <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
+            </div>
+        </section>
 
     {% elif to_resume %}
-        <h1 class="title">Resume your task!</h1>
+        <section class="panel">
+            <h1 class="title">Resume your task!</h1>
 
-        <form method="post" action="/records/resume">
-            <input
-                type="text"
-                name="task_id"
-                class="input-box"
-                placeholder="Task Id #11111"
-                required>
-            <button class="button" type="submit">
-                <i class="fa-solid fa-forward"></i>Resume your task
-            </button>
-        </form>
+            <form method="post" action="/records/resume" class="action-form">
+                <input
+                    type="text"
+                    name="task_id"
+                    class="input-box"
+                    placeholder="Task Id #11111"
+                    required>
+                <button class="button" type="submit">
+                    <i class="fa-solid fa-forward"></i> Resume your task
+                </button>
+            </form>
 
-        <div class="dif-box">
-            <span class="">Time untile your goal <strong>00:00</strong></span>
-        </div>
-        
+            <div class="dif-box">
+                <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
+            </div>
+        </section>
+
     {% else %}
-        <h1 class="title">Counter time</h1>
-        
-        <div class="button">
-            <p>
-                Want to start a task?
-                <br/>
-                <form method="get" action="/start-record">
-                    <button type="submit"> <i class="fa-solid fa-play"></i> Start </button>
-                </form>
-            </p>
-            
-            <p>
-                Need a break?
-                <br/>
-                <form method="get" action="/pause-record">
-                    <button type="submit"> <i class="fa-solid fa-pause"></i> Pause </button>
-                </form>
-            </p>
+        <section class="panel">
+            <h1 class="title">Counter time</h1>
 
-            <p>
-                Ready to continue?
-                <br/>
-                <form method="get" action="/resume-record">
-                    <button type="submit"> <i class="fa-solid fa-forward"></i> Resume </button>
-                </form>
-            </p>
+            <div class="actions-grid">
+                <article class="action-card">
+                    <p>Want to start a task?</p>
+                    <form method="get" action="/start-record">
+                        <button type="submit" class="button"><i class="fa-solid fa-play"></i> Start</button>
+                    </form>
+                </article>
 
-            <p>
-                Already Done Machine!?
-                <br/>
-                <form method="get" action="/stop-record">
-                    <button type="submit"> <i class="fa-solid fa-stop"></i> Stop </button>
-                </form>
-            </p>
-        </div>
-        
-        <div class="dif-box">
-            <span class="">Time untile your goal <strong>00:00</strong></span>
-        </div>
+                <article class="action-card">
+                    <p>Need a break?</p>
+                    <form method="get" action="/pause-record">
+                        <button type="submit" class="button"><i class="fa-solid fa-pause"></i> Pause</button>
+                    </form>
+                </article>
+
+                <article class="action-card">
+                    <p>Ready to continue?</p>
+                    <form method="get" action="/resume-record">
+                        <button type="submit" class="button"><i class="fa-solid fa-forward"></i> Resume</button>
+                    </form>
+                </article>
+
+                <article class="action-card">
+                    <p>Already done machine!?</p>
+                    <form method="get" action="/stop-record">
+                        <button type="submit" class="button"><i class="fa-solid fa-stop"></i> Stop</button>
+                    </form>
+                </article>
+            </div>
+
+            <div class="dif-box">
+                <span class="box-goal">Time untile your goal <strong>00:00</strong></span>
+            </div>
+        </section>
     {% endif %}
+</div>
 {% endblock content %}
